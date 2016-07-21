@@ -1,0 +1,24 @@
+(
+ :root-dir "/Users/giangi/Projects/fpinscala"
+ :cache-dir "/Users/giangi/Projects/fpinscala/.ensime_cache"
+ :name "fpinscala"
+ :java-home "/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home"
+ :java-flags ("-Xms1024m" "-Xmx1024m" "-XX:ReservedCodeCacheSize=128m" "-XX:MaxMetaspaceSize=256m")
+ :reference-source-roots ("/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home/src.zip")
+ :scala-version "2.11.7"
+ :compiler-args nil
+ 
+ :subprojects ((
+   :name "fpinscala"
+   :module-name "fpinscala"
+   :source-roots ("/Users/giangi/Projects/fpinscala/src/main/scala")
+   :target "/Users/giangi/Projects/fpinscala/target/scala-2.11/classes"
+   :test-targets ("/Users/giangi/Projects/fpinscala/target/scala-2.11/test-classes")
+   :depends-on-modules nil
+   :compile-deps ("/Users/giangi/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.7.jar")
+   :runtime-deps nil
+   :test-deps ("/Users/giangi/.ivy2/cache/org.scalatest/scalatest_2.11/bundles/scalatest_2.11-2.2.6.jar" "/Users/giangi/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.11.7.jar" "/Users/giangi/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/bundles/scala-xml_2.11-1.0.2.jar")
+   :doc-jars ("/Users/giangi/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/docs/scala-xml_2.11-1.0.2-javadoc.jar" "/Users/giangi/.ivy2/cache/org.scalatest/scalatest_2.11/docs/scalatest_2.11-2.2.6-javadoc.jar" "/Users/giangi/.ivy2/cache/org.scala-lang/scala-reflect/docs/scala-reflect-2.11.7-javadoc.jar" "/Users/giangi/.ivy2/cache/org.scala-lang/scala-library/docs/scala-library-2.11.7-javadoc.jar" "/Users/giangi/Projects/fpinscala/target/scala-2.11/fpinscala_2.11-0.1-SNAPSHOT-javadoc.jar")
+   :reference-source-roots ("/Users/giangi/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.11.7-sources.jar" "/Users/giangi/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-2.2.6-sources.jar" "/Users/giangi/.ivy2/cache/org.scala-lang/scala-reflect/srcs/scala-reflect-2.11.7-sources.jar" "/Users/giangi/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/srcs/scala-xml_2.11-1.0.2-sources.jar")))
+ 
+)

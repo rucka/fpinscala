@@ -1,3 +1,4 @@
+package ch2
 import scala.annotation.tailrec
 
 object Exercise2 {
@@ -11,7 +12,7 @@ object Exercise2 {
 import Exercise2._
 
 /*
-from repl you can test typing: 
+from repl you can test typing:
     :load src/main/scala/fpinscala/ch2/Exercise2.scala
     isSorted[Int](Array(1,2,3,4), (a,b) => {a <= b})
     isSorted[Int](Array('a','b','c','d'), (a,b) => {a <= b})

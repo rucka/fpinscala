@@ -1,3 +1,4 @@
+package ch2
 object Exercise3 {
     def curry[A,B,C](f: (A, B) => C): A => (B => C) = (a: A) => (b: B) => f(a, b)
 }
@@ -5,7 +6,7 @@ object Exercise3 {
 import Exercise3._
 
 /*
-from repl you can test typing: 
+from repl you can test typing:
     :load src/main/scala/fpinscala/ch2/Exercise3.scala
     val add = (a: Int, b: Int) => a + b
     val incr = curry(add)(1)
