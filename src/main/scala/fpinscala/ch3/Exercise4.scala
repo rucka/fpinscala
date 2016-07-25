@@ -16,7 +16,7 @@ import Exercise4._
 /*
 from repl you can test typing:
   :load src/main/scala/fpinscala/ch3/List.scala
-  :load src/main/scala/fpinscala/ch3/Exercise3.scala
+  :load src/main/scala/fpinscala/ch3/Exercise4.scala
   drop(Nil, 1)
   drop(List(), 2)
   drop(List(1), 5)
