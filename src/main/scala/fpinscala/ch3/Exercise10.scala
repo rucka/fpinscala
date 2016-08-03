@@ -4,7 +4,7 @@ import scala.annotation.tailrec
 import List._
 
 object Exercise10 {
-    def foldLeft[A, B](as: List[A], z: B)(f: (B, A) => B): B =
+    @tailrec def foldLeft[A, B](as: List[A], z: B)(f: (B, A) => B): B =
       as match {
         case Nil => z
         case Cons(x, xs) =>
