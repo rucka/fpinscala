@@ -24,6 +24,9 @@ object List {
       case Cons(x, xs) => foldLeft(xs, f(z, x))(f)
     }
 
+  def append[A](as: List[A], bs: List[A]): List[A] = foldRight(as, bs)(Cons(_, _))
+  def concat[A](l: List[List[A]]): List[A] = foldRight(l, Nil:List[A])(append)
+
   def printList[A](as: List[A]): Unit =
     as match {
       case Nil =>
