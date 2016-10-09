@@ -23,4 +23,16 @@ object List {
       case Nil => z
       case Cons(x, xs) => foldLeft(xs, f(z, x))(f)
     }
+
+  def printList[A](as: List[A]): Unit =
+    as match {
+      case Nil =>
+      case Cons(x, Nil) => {
+        print(x)
+      }
+      case Cons(x, xs) => {
+        print(s"$x, ")
+        printList(xs)
+      }
+    }
 }
