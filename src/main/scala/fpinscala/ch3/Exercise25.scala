@@ -14,4 +14,5 @@ import Exercise25._
 from repl you can test typing:
   :load src/main/scala/fpinscala/ch3/Tree.scala
   :load src/main/scala/fpinscala/ch3/Exercise25.scala
+  size(Branch(Leaf(3),Branch(Leaf(1), Leaf(2))))
 */
