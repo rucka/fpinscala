@@ -27,6 +27,11 @@ object List {
   def append[A](as: List[A], bs: List[A]): List[A] = foldRight(as, bs)(Cons(_, _))
   def concat[A](l: List[List[A]]): List[A] = foldRight(l, Nil:List[A])(append)
 
+  def map[A,B](ls: List[A])(f: A => B): List[B] = foldRight(ls, Nil:List[B])((x, acc) => Cons(f(x), acc))
+
+  def flatMap[A, B](as: List[A])(f: A => List[B]) : List[B] =
+    foldRight(as, Nil:List[B])((x, acc) => append(f(x), acc))
+
   def printList[A](as: List[A]): Unit =
     as match {
       case Nil =>
