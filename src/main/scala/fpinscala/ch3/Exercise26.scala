@@ -2,7 +2,7 @@ package ch3
 import scala.annotation.tailrec
 
 object Exercise26 {
-  def maximum[A](tree: Tree[Int]): Int = tree match {
+  def maximum(tree: Tree[Int]): Int = tree match {
     case Branch(l, r) => maximum(l) max maximum(r)
     case Leaf(v) => v
   }

@@ -2,7 +2,7 @@ package ch3
 import scala.annotation.tailrec
 
 object Exercise27 {
-  def depth[A](tree: Tree[Int]): Int = tree match {
+  def depth(tree: Tree[Int]): Int = tree match {
     case Branch(l, r) => 1 + (depth(l) max depth(r))
     case Leaf(v) => 0
   }
