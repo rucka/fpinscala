@@ -1,6 +1,7 @@
 package ch4
 import scala.annotation.tailrec
 import Option._
+import Helpers._
 
 object Exercise2 {
   def variance(xs: Seq[Double]): Option[Double] =
