@@ -2,9 +2,9 @@ package ch3
 import scala.annotation.tailrec
 
 object Exercise24 {
-  @annotation.tailrec def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean = (sup, sub) match {
-    case (Nil, _) => false
-    case (_, Nil) => true
+  @annotation.tailrec def hasSubsequence[A](sup: scala.collection.immutable.List[A], sub: scala.collection.immutable.List[A]): Boolean = (sup, sub) match {
+    case (scala.collection.immutable.Nil, _) => false
+    case (_, scala.collection.immutable.Nil) => true
     case (h1 :: t1, h2 :: t2) if h1 == h2 => hasSubsequence(t1, t2)
     case (h1 :: t1, _) if h1 == sub.head => hasSubsequence(t1, sub.tail)
     case (h1 :: t1, _) => hasSubsequence(t1, sub)
