@@ -25,4 +25,5 @@ import Exercise1._
 from repl you can test typing:
   :load src/main/scala/fpinscala/ch5/Stream.scala
   :load src/main/scala/fpinscala/ch5/Exercise1.scala
+  cons(1, cons(2, cons(3, empty))).toListTailRec
 */
