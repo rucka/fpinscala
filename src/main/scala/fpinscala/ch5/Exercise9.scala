@@ -4,10 +4,6 @@ import Stream._
 
 object Exercise9 {
   implicit class StreamExt[+A](val self: Stream[A]) extends AnyVal {
-    def foldRight[B](z: => B)(f: (A, => B) => B): B = self match {
-      case Cons(h, t) => f(h(), t().foldRight(z)(f))
-      case _ => z
-    }
     def toList: List[A] = self match {
       case Empty => List.empty
       case Cons(h, t) => h() :: t().toList
