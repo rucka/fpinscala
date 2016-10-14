@@ -14,12 +14,6 @@ object Exercise13 {
       case Empty => List.empty
       case Cons(h, t) => h() :: t().toList
     }
-/*
-    def take(n: Int): Stream[A] = self match {
-      case Cons(h, t) if n > 1 => cons(h(), t().take(n - 1))
-      case Cons(h, _) if n == 1 => cons(h(), empty)
-      case _ => empty
-    }*/
 
     def map[B](f: A => B): Stream[B] = unfold(self) {
       case Cons(h, t) => Some((f(h()), t()))
