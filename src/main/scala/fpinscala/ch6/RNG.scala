@@ -13,4 +13,17 @@ object RNG {
       (n, nextRNG) // The return value is a tuple containing both a pseudo-random integer and the next `RNG` state.
     }
   }
+
+  type Rand[+A] = RNG => (A, RNG)
+
+  val int: Rand[Int] = _.nextInt
+
+  def unit[A](a: A): Rand[A] =
+    rng => (a, rng)
+
+  def map[A,B](s: Rand[A])(f: A => B): Rand[B] =
+    rng => {
+      val (a, rng2) = s(rng)
+      (f(a), rng2)
+    }
 }
