@@ -1,7 +1,6 @@
 object ch7_4 {
   import Par._
-  def asyncF[A,B](f: A => B): A => Par[B] =
-    a => lazyUnit(f(a))
+  def asyncF[A,B](f: A => B): A => Par[B] = a => lazyUnit(f(a))
 }
 import ch7_4._
 
