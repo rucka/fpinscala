@@ -29,8 +29,10 @@ object Par {
 
   def asyncF[A,B](f: A => B): A => Par[B] = a => lazyUnit(f(a))
 
-  def sequence[A](ps: List[Par[A]]): Par[List[A]] = ???
-
+  def sequence[A](ps: List[Par[A]]): Par[List[A]] = {
+    ps.foldRight(Par.unit(List[A]()))((ap, acc) => map2(ap, acc)(_ :: _))
+  }
+  
   def parMap[A,B](ps: List[A])(f: A => B): Par[List[B]] = {
     val fbs: List[Par[B]] = ps.map(asyncF(f))
     sequence(fbs)
