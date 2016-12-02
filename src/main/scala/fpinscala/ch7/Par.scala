@@ -1,17 +1,7 @@
-import java.util.concurrent.TimeUnit
-trait Callable[A] { def call: A }
-trait Future[A] {
-  def get: A
-  def get(timeout: Long, unit: TimeUnit): A
-  def cancel(evenIfRunning: Boolean): Boolean
-  def isDone: Boolean
-  def isCancelled: Boolean
-}
-class ExecutorService {
-  def submit[A](a: Callable[A]): Future[A] = ???
-}
-type Par[A] = ExecutorService => Future[A]
+import java.util.concurrent._
+
 object Par {
+  type Par[A] = ExecutorService => Future[A]
   def unit[A](a: A): Par[A] = (es: ExecutorService) => UnitFuture(a)
   def run[A](s: ExecutorService)(a: Par[A]): Future[A] = a(s)
 
@@ -26,12 +16,24 @@ object Par {
       def call = a(es).get
     })
 
-  def lazyUnit[A](a: A): Par[A] = fork(unit(a)) 
+  def lazyUnit[A](a: A): Par[A] = fork(unit(a))
 
   def map2[A,B,C](a: Par[A], b: Par[B])(f: (A, B) => C): Par[C] = (es: ExecutorService) => {
     val af = a(es)
     val bf = b(es)
     Map2Future(af, bf, f)
+  }
+
+  def map[A,B](pa: Par[A])(f: A => B): Par[B] =
+    map2(pa, unit(()))((a,_) => f(a))
+
+  def asyncF[A,B](f: A => B): A => Par[B] = a => lazyUnit(f(a))
+
+  def sequence[A](ps: List[Par[A]]): Par[List[A]] = ???
+
+  def parMap[A,B](ps: List[A])(f: A => B): Par[List[B]] = {
+    val fbs: List[Par[B]] = ps.map(asyncF(f))
+    sequence(fbs)
   }
 
   case class Map2Future[A,B,C](a: Future[A], b: Future[B],
