@@ -32,11 +32,14 @@ object Par {
   def sequence[A](ps: List[Par[A]]): Par[List[A]] = {
     ps.foldRight(Par.unit(List[A]()))((ap, acc) => map2(ap, acc)(_ :: _))
   }
-  
+
   def parMap[A,B](ps: List[A])(f: A => B): Par[List[B]] = {
     val fbs: List[Par[B]] = ps.map(asyncF(f))
     sequence(fbs)
   }
+
+  def choice[A](cond: Par[Boolean])(t: Par[A], f: Par[A]): Par[A] = es =>
+    if (run(es)(cond).get) t(es) else f(es)
 
   case class Map2Future[A,B,C](a: Future[A], b: Future[B],
                                f: (A,B) => C) extends Future[C] {
