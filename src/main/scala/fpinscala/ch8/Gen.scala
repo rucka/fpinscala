@@ -9,6 +9,10 @@ object ch8 {
       size flatMap(listOfN)
   }
   object Gen {
+    private val nonNegativeInt = RNG.map(RNG.int)(i => if (i < 0) -(i + 1) else i)
     def unit[A](a: A): Gen[A] = Gen(State.unit(a))
+    def boolean: Gen[Boolean] = Gen(State(RNG.map(nonNegativeInt)(_ % 2 == 0)))
+    def choose(start: Int, stopExclusive: Int): Gen[Int] =
+      Gen(State(RNG.map(nonNegativeInt)(n => start + n % (stopExclusive - start))))
   }
 }
