@@ -14,9 +14,15 @@ object ch9 {
     def map2[A, B, C](a: Parser[A], b: Parser[B])(f: (A, B) => C): Parser[C] =
       map(product(a, b))(f.tupled)
 
-    def listOfN[A](n: Int, p: Parser[A]): Parser[List[A]]
-    def many[A](p: Parser[A]): Parser[List[A]]
-    def many1[A](p: Parser[A]): Parser[List[A]] = map2(p, many(p))(_ :: _)
+    def listOfN[A](n: Int, p: Parser[A]): Parser[List[A]] =
+      if (n <= 0) succeded(List())
+      else map2(p, listOfN(n -1, p))(_ :: _)
+
+    def many[A](p: Parser[A]): Parser[List[A]] =
+      map2(p, many(p))(_ :: _) or succeded(List())
+
+    def many1[A](p: Parser[A]): Parser[List[A]] =
+      map2(p, many(p))(_ :: _)
     def product[A,B](p: Parser[A], p2: Parser[B]): Parser[(A,B)]
 
     def slice[A](p: Parser[A]): Parser[String]
