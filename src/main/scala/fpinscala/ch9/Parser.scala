@@ -11,7 +11,8 @@ object ch9 {
       ParserOps[String] = ParserOps(f(a))
 
     def map[A, B](a: Parser[A])(f: A => B): Parser[B]
-    def map2[A, B, C](a: Parser[A], b: Parser[B])(f: (A, B) => C): Parser[C] =
+    def product[A,B](p: Parser[A], p2: => Parser[B]): Parser[(A,B)]
+    def map2[A, B, C](a: Parser[A], b: => Parser[B])(f: (A, B) => C): Parser[C] =
       map(product(a, b))(f.tupled)
 
     def listOfN[A](n: Int, p: Parser[A]): Parser[List[A]] =
@@ -23,7 +24,6 @@ object ch9 {
 
     def many1[A](p: Parser[A]): Parser[List[A]] =
       map2(p, many(p))(_ :: _)
-    def product[A,B](p: Parser[A], p2: Parser[B]): Parser[(A,B)]
 
     def slice[A](p: Parser[A]): Parser[String]
 
