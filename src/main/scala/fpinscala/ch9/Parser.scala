@@ -1,5 +1,6 @@
 import scala.language.higherKinds
 import scala.language.implicitConversions
+import scala.util.matching.Regex
 object ch9 {
   trait Parsers[ParseError, Parser[+_]] { self =>
     def run[A](p: Parser[A])(input: String): Either[ParseError, A]
@@ -12,6 +13,7 @@ object ch9 {
 
     def succeded[A](a: A): Parser[A]
     def flatMap[A, B](a: Parser[A])(f: A => Parser[B]): Parser[B]
+    implicit def regex(r: Regex): Parser[String]
 
     def map[A, B](p: Parser[A])(f: A => B): Parser[B] =
       flatMap(p)(a => succeded(f(a)))
@@ -55,5 +57,10 @@ object ch9 {
     case class JBool(get: Boolean) extends JSON
     case class JArray(get: IndexedSeq[JSON]) extends JSON
     case class JObject(get: Map[String, JSON]) extends JSON
+
+    def jsonParser[ParseError, Parser[+_]](P: Parsers[ParseError, Parser]): Parser[JSON] = {
+      import P._
+      ???
+    }
   }
 }
