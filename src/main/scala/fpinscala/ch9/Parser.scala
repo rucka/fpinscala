@@ -10,12 +10,18 @@ object ch9 {
     implicit def asStringParser[A](a: A)(implicit f: A => Parser[String]):
       ParserOps[String] = ParserOps(f(a))
 
+    def succeded[A](a: A): Parser[A]
     def flatMap[A, B](a: Parser[A])(f: A => Parser[B]): Parser[B]
-    def map[A, B](a: Parser[A])(f: A => B): Parser[B]
+
+    def map[A, B](p: Parser[A])(f: A => B): Parser[B] =
+      flatMap(p)(a => succeded(f(a)))
     def product[A,B](p: Parser[A], p2: => Parser[B]): Parser[(A,B)] =
       flatMap(p)(a => map(p2)(b => (a,b)))
-    def map2[A, B, C](a: Parser[A], b: => Parser[B])(f: (A, B) => C): Parser[C] =
-      map(product(a, b))(f.tupled)
+    def map2[A, B, C](p: Parser[A], p2: => Parser[B])(f: (A, B) => C): Parser[C] =
+      for {
+        a <- p
+        b <- p2
+      } yield f(a,b)
 
     def listOfN[A](n: Int, p: Parser[A]): Parser[List[A]] =
       if (n <= 0) succeded(List())
@@ -29,16 +35,25 @@ object ch9 {
 
     def slice[A](p: Parser[A]): Parser[String]
 
-    def succeded[A](a: A): Parser[A] = string("") map (_ => a)
-
     case class ParserOps[A](p: Parser[A]) {
       def |[B>:A](p2: Parser[B]): Parser[B] = self.or(p, p2)
       def or[B>:A](p2: Parser[B]): Parser[B] = self.or(p, p2)
       def many: Parser[List[A]] = self.many(p)
       def map[B](f: A => B): Parser[B] = self.map(p)(f)
+      def flatMap[B](f: A =>  Parser[B]): Parser[B] = self.flatMap(p)(f)
       def slice: Parser[String] = self.slice(p)
       def product[B](p2: Parser[B]): Parser[(A,B)] = self.product(p, p2)
       def **[B](p2: Parser[B]): Parser[(A,B)] = self.product(p, p2)
     }
+  }
+
+  trait JSON
+  object JSON {
+    case object JNull extends JSON
+    case class JNumber(get: Double) extends JSON
+    case class JString(get: String) extends JSON
+    case class JBool(get: Boolean) extends JSON
+    case class JArray(get: IndexedSeq[JSON]) extends JSON
+    case class JObject(get: Map[String, JSON]) extends JSON
   }
 }
