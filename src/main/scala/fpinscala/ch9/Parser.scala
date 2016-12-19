@@ -12,7 +12,8 @@ object ch9 {
 
     def flatMap[A, B](a: Parser[A])(f: A => Parser[B]): Parser[B]
     def map[A, B](a: Parser[A])(f: A => B): Parser[B]
-    def product[A,B](p: Parser[A], p2: => Parser[B]): Parser[(A,B)]
+    def product[A,B](p: Parser[A], p2: => Parser[B]): Parser[(A,B)] =
+      flatMap(p)(a => map(p2)(b => (a,b)))
     def map2[A, B, C](a: Parser[A], b: => Parser[B])(f: (A, B) => C): Parser[C] =
       map(product(a, b))(f.tupled)
 
