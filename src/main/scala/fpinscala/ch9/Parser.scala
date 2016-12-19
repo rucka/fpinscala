@@ -4,12 +4,13 @@ object ch9 {
   trait Parsers[ParseError, Parser[+_]] { self =>
     def run[A](p: Parser[A])(input: String): Either[ParseError, A]
     def char(c: Char): Parser[Char] = string(c.toString) map (_.charAt(0))
-    def or[A](s1: Parser[A], s2: Parser[A]): Parser[A]
+    def or[A](s1: Parser[A], s2: => Parser[A]): Parser[A]
     implicit def string(s: String): Parser[String]
     implicit def operators[A](p: Parser[A]) = ParserOps[A](p)
     implicit def asStringParser[A](a: A)(implicit f: A => Parser[String]):
       ParserOps[String] = ParserOps(f(a))
 
+    def flatMap[A, B](a: Parser[A])(f: A => Parser[B]): Parser[B]
     def map[A, B](a: Parser[A])(f: A => B): Parser[B]
     def product[A,B](p: Parser[A], p2: => Parser[B]): Parser[(A,B)]
     def map2[A, B, C](a: Parser[A], b: => Parser[B])(f: (A, B) => C): Parser[C] =
