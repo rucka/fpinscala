@@ -5,7 +5,7 @@ object ch10_7 {
     if (v.length == 0) m.zero
     if (v.length == 1) f(v.head)
     val pairs = v.splitAt(v.length / 2)
-    m.op(foldMapV(pairs._1, m)(f), foldMapV(pairs._1, m)(f))
+    m.op(foldMapV(pairs._1, m)(f), foldMapV(pairs._2, m)(f))
   }
 }
 import ch10_7._
