@@ -2,7 +2,6 @@ object ch10_12 {
   import ch10.Monoid
   import scala.language.higherKinds
 
-
   trait Foldable[F[_]] {
     import Monoid._
     def foldRight[A,B](as: F[A])(z: B)(f: (A,B) => B): B =
