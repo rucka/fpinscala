@@ -14,6 +14,8 @@ object ch10 {
       foldRight(as)(mb.zero)((a, b) => mb.op(f(a), b))
     def concatenate[A](as: F[A])(m: Monoid[A]): A =
       foldLeft(as)(m.zero)(m.op)
+    def toList[A](fa: F[A]): List[A] =
+      foldRight(fa)(List[A]())(_ :: _)
   }
   object Monoid {
     val intAddition = new Monoid[Int] {
