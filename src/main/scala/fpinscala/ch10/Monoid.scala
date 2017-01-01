@@ -18,7 +18,7 @@ object ch10 {
       foldRight(fa)(List[A]())(_ :: _)
   }
   object Monoid {
-    val intAddition = new Monoid[Int] {
+    val intAddiction = new Monoid[Int] {
       def op(a1: Int, a2: Int): Int = a1 + a2
       def zero: Int = 0
     }
@@ -53,6 +53,17 @@ object ch10 {
           acc.updated(k, V.op(a.getOrElse(k, V.zero),
                               b.getOrElse(k, V.zero)))
         }
+      }
+    def productMonoid[A,B](A: Monoid[A], B: Monoid[B]): Monoid[(A, B)] =
+      new Monoid[(A, B)] {
+        def op(x: (A, B), y: (A, B)) =
+          (A.op(x._1, y._1), B.op(x._2, y._2))
+        val zero = (A.zero, B.zero)
+      }
+    def functionMonoid[A,B](B: Monoid[B]): Monoid[A => B] =
+      new Monoid[A => B] {
+        def op(f: A => B, g: A => B) = a => B.op(f(a), g(a))
+        val zero: A => B = a => B.zero
       }
     def foldMapV[A,B](v: IndexedSeq[A], m: Monoid[B])(f: A => B): B = {
       if (v.length == 0) m.zero
