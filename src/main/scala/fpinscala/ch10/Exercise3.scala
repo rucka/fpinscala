@@ -8,6 +8,6 @@ object ch10_3 {
 import ch10_3._
 /*
 from repl you can test typing:
-  :load src/main/scala/fpinscala/ch10/Monoid.scala
-  :load src/main/scala/fpinscala/ch10/Exercise3.scala
+:load src/main/scala/fpinscala/ch10/Monoid.scala
+:load src/main/scala/fpinscala/ch10/Exercise3.scala
 */

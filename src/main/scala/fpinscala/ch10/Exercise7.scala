@@ -11,6 +11,6 @@ object ch10_7 {
 import ch10_7._
 /*
 from repl you can test typing:
-  :load src/main/scala/fpinscala/ch10/Monoid.scala
-  :load src/main/scala/fpinscala/ch10/Exercise7.scala
+:load src/main/scala/fpinscala/ch10/Monoid.scala
+:load src/main/scala/fpinscala/ch10/Exercise7.scala
 */
