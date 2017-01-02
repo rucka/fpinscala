@@ -20,5 +20,8 @@ object ch11 {
       flatMap(ma)(a => unit(f(a)))
     def map2[A,B,C](ma: F[A], mb: F[B])(f: (A,B) => C): F[C] =
       flatMap(ma)(a => map(mb)(b => f(a, b)))
+
+    def sequence[A](lma: List[F[A]]): F[List[A]] = ???
+    def traverse[A,B](la: List[A])(f: A => F[B]): F[List[B]] = ???
   }
 }
