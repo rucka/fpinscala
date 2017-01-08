@@ -28,4 +28,13 @@ object ch11 {
     def replicateM[A](n: Int, ma: F[A]): F[List[A]] =
       sequence(List.fill(n)(ma))
   }
+
+  val optionMonad = new Monad[Option] {
+    def unit[A](a: => A) = Some(a)
+    def flatMap[A,B](ma: Option[A])(f: A => Option[B]) = ma flatMap f
+  }
+  val listMonad = new Monad[List] {
+    def unit[A](a: => A) = List(a)
+    def flatMap[A,B](ma: List[A])(f: A => List[B]) = ma flatMap f
+  }
 }
