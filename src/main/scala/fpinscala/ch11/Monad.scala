@@ -21,7 +21,11 @@ object ch11 {
     def map2[A,B,C](ma: F[A], mb: F[B])(f: (A,B) => C): F[C] =
       flatMap(ma)(a => map(mb)(b => f(a, b)))
 
-    def sequence[A](lma: List[F[A]]): F[List[A]] = ???
-    def traverse[A,B](la: List[A])(f: A => F[B]): F[List[B]] = ???
+    def sequence[A](lma: List[F[A]]): F[List[A]] =
+      lma.foldRight(unit(List[A]()))((x, y) => map2(x, y)(_ :: _))
+    def traverse[A,B](la: List[A])(f: A => F[B]): F[List[B]] =
+      la.foldRight(unit(List[B]()))((x,y) => map2(f(x), y)(_ :: _))
+    def replicateM[A](n: Int, ma: F[A]): F[List[A]] =
+      sequence(List.fill(n)(ma))
   }
 }
