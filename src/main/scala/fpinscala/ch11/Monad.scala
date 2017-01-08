@@ -27,6 +27,10 @@ object ch11 {
       la.foldRight(unit(List[B]()))((x,y) => map2(f(x), y)(_ :: _))
     def replicateM[A](n: Int, ma: F[A]): F[List[A]] =
       sequence(List.fill(n)(ma))
+    def product[A,B](ma: F[A], mb: F[B]): F[(A, B)] = map2(ma, mb)((_, _))
+    def filterM[A](ms: List[A])(f: A => F[Boolean]): F[List[A]] =
+      map(
+        traverse(ms)(a => map(f(a))((_, a))))(_.filter(_._1).map(_._2))
   }
 
   val optionMonad = new Monad[Option] {
