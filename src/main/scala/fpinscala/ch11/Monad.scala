@@ -32,6 +32,7 @@ object ch11 {
       map(traverse(ms)(a => map(f(a))((_, a))))(_.filter(_._1).map(_._2))
     def compose[A,B,C](f: A => F[B], g: B => F[C]): A => F[C] = a =>
       flatMap(f(a))(g)
+    def join[A](mma: F[F[A]]): F[A] = flatMap(mma)(identity)
   }
 
   val optionMonad = new Monad[Option] {
