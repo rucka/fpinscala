@@ -1,5 +1,5 @@
 object ch12_3 {
-  import ch12.Functor
+  import lib_monad.Functor
   import scala.language.higherKinds
 
   trait Applicative[F[_]] extends Functor[F] {
@@ -23,6 +23,6 @@ object ch12_3 {
 import ch12_3._
 /*
 from repl you can test typing:
-:load src/main/scala/fpinscala/ch12/Applicative.scala
+:load src/main/scala/fpinscala/lib/Monad.scala
 :load src/main/scala/fpinscala/ch12/Exercise3.scala
 */

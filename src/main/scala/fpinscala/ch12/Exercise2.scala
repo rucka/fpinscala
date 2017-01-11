@@ -1,5 +1,5 @@
 object ch12_2 {
-  import ch12.Functor
+  import lib_monad.Functor
   import scala.language.higherKinds
 
   trait ApplicativeFromUnitApply[F[_]] extends Functor[F] {
@@ -17,12 +17,12 @@ object ch12_2 {
     def map2[A,B,C](fa: F[A], fb: F[B])(f: (A, B) => C): F[C]
 
     def apply[A,B](fab: F[A => B])(fa: F[A]): F[B] =
-      map2(fab, fa)((f, a) => f(a)/*_(_)*/) 
+      map2(fab, fa)((f, a) => f(a)/*_(_)*/)
   }
 }
 import ch12_2._
 /*
 from repl you can test typing:
-:load src/main/scala/fpinscala/ch12/Applicative.scala
+:load src/main/scala/fpinscala/lib/Monad.scala
 :load src/main/scala/fpinscala/ch12/Exercise2.scala
 */
