@@ -35,6 +35,10 @@ object ch12 {
           self.map2(fga, fgb)(G.map2(_,_)(f))
       }
     }
+    def sequenceMap[K,V](ofa: Map[K,F[V]]): F[Map[K,V]] =
+        (ofa foldLeft unit(Map.empty[K,V])) { case (facc, (k, fv)) =>
+          map2(facc, fv)((acc, v) => acc + (k -> v))
+        }
   }
   val applicativeOption = new Applicative[Option] {
     def unit[A](a: => A): Option[A] = Some(a)
